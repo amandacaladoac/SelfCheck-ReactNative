@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
+    padding: 15,
   },
   textoInicio: {
     alignItems: 'center',
@@ -41,13 +42,13 @@ const styles = StyleSheet.create({
     gap: 30,
   },
   heading: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: 'normal',
     color: '#004A8D',
 
   },
   subheading: {
-    fontSize: 16,
+    fontSize: 20,
     textAlign: 'center',
     color: '#000000', // Define a cor do texto como preto
   },
