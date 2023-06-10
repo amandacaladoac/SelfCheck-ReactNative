@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, View, Text} from 'react-native';
 import { Image } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
@@ -43,9 +43,11 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 30,
-    fontWeight: 'normal',
+    fontWeight: 'bold',
     color: '#004A8D',
-
+    textShadowColor: 'rgba(0, 0, 0, 0.25)',
+    textShadowOffset: { width: 0, height: 4 },
+    textShadowRadius: 4,
   },
   subheading: {
     fontSize: 20,
@@ -56,6 +58,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#004A8D',
     padding: 20,
     borderRadius: 30,
+    width: 200,
   },
   buttonText: {
     color: '#FFFFFF',
