@@ -9,7 +9,7 @@ import { TouchableOpacity } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-
+      
       <Image source={require('./assets/logo-principal.png')} />
 
       <View style={styles.textoInicio}>
