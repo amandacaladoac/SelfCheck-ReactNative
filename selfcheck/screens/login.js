@@ -15,6 +15,10 @@ const FormularioScreen = () => {
     console.log('Senha:', senha);
   };
 
+  const navigateToCheckin = () => {
+    navigation.navigate('Checkin');
+  }
+
   const navigateToCadastro = () => {
     navigation.navigate('Cadastro');
   };
@@ -40,7 +44,7 @@ const FormularioScreen = () => {
         </View>
 
         <View style={styles.buttons}>
-          <TouchableOpacity style={styles.buttonContainer} onPress={handleSubmit}>
+          <TouchableOpacity style={styles.buttonContainer} onPress={navigateToCheckin}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonContainer2} onPress={navigateToCadastro}>
