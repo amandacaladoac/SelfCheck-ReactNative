@@ -1,69 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, View, Text} from 'react-native';
-import { Image } from 'react-native';
-import { TouchableOpacity } from 'react-native';
+import React, { cloneElement, useState } from 'react';
+import { StyleSheet, View, TextInput, Image, TouchableOpacity, Button, Text } from 'react-native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
+// importando telas
+import HomeScreen from './screens/home.js'; 
+import FormularioScreen from './screens/login.js'; 
 
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      
-      <Image source={require('./assets/logo-principal.png')} />
-
-      <View style={styles.textoInicio}>
-        <Text style={styles.heading}>Self Check</Text>
-        <Text style={styles.subheading}>
-          “No Egito, as bibliotecas eram chamadas  ''Tesouro dos remédios da alma''. De fato é nela que se cura a ignorância, a mais perigosa das enfermidades e a origem de todas as outras.”
-          ― Jacque Bossuet
-        </Text>
-      </View>
-
-      <TouchableOpacity style={styles.buttonContainer} onPress={() => { }}>
-        <Text style={styles.buttonText}>Faça seu Check-in</Text>
-      </TouchableOpacity>
-
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} options={{
+            headerShown: false
+          }}/>
+        <Stack.Screen name="Login" component={FormularioScreen} options={{
+            headerShown: false
+          }} />
+        {/* Adicione outras telas do seu aplicativo aqui */}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    padding: 15,
-  },
-  textoInicio: {
-    alignItems: 'center',
-    marginBottom: 20,
-    gap: 30,
-  },
-  heading: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: '#004A8D',
-    textShadowColor: 'rgba(0, 0, 0, 0.25)',
-    textShadowOffset: { width: 0, height: 4 },
-    textShadowRadius: 4,
-  },
-  subheading: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: '#000000', // Define a cor do texto como preto
-  },
-  buttonContainer: {
-    backgroundColor: '#004A8D',
-    padding: 20,
-    borderRadius: 30,
-    width: 200,
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-});
