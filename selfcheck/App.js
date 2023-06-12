@@ -5,8 +5,9 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // importando telas
-import HomeScreen from './screens/home.js'; 
-import FormularioScreen from './screens/login.js'; 
+import HomeScreen from './screens/home.js';
+import FormularioScreen from './screens/login.js';
+import CadastroScreen from './screens/cadastro.js';
 
 const Stack = createStackNavigator();
 
@@ -15,11 +16,12 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} options={{
-            headerShown: false
-          }}/>
+          headerShown: false
+        }} />
         <Stack.Screen name="Login" component={FormularioScreen} options={{
-            headerShown: false
-          }} />
+          headerShown: false
+        }} />
+        <Stack.Screen name="Cadastro" component={CadastroScreen} options={{ headerShown: false }} />
         {/* Adicione outras telas do seu aplicativo aqui */}
       </Stack.Navigator>
     </NavigationContainer>
