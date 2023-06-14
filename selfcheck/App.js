@@ -28,7 +28,7 @@ export default function App() {
         <Stack.Screen name="Perfil" component={PerfilScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Navigation" component={Navigation} options={{ headerShown: false }} />
         
-        {/* Adicione outras telas do seu aplicativo aqui */}
+        {/* outras telas do aplicativo */}
       </Stack.Navigator>
     </NavigationContainer>
   );
