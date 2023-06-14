@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Image, Text, StyleSheet, Button } from 'react-native';
+import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 const PerfilScreen = () => {
     const [checkins, setCheckins] = useState(0);
     const [pontos, setPontos] = useState(0);
+    const navigation = useNavigation();
 
     const adicionarCheckin = () => {
         setCheckins(checkins + 1);
@@ -17,6 +18,12 @@ const PerfilScreen = () => {
         setPontos(pontos + 1);
         saveCache();
     };
+
+    const handleLogout = () => {
+        // Lógica para deslogar o usuário da conta
+    
+        navigation.navigate('Home');
+      };
 
     return (
         <View style={styles.container}>
@@ -30,28 +37,35 @@ const PerfilScreen = () => {
                         source={require('../assets/foto-perfil.png')}
                         style={styles.fotoPerfil}
                     />
-                </View>
-                <View style={styles.corpo}>
+
                     <Image
                         source={require('../assets/icon-edit.png')}
                         style={styles.iconEdit}
                     />
                 </View>
-                <Text style={styles.nomeUsuarioPerfil}>Nome do usuário</Text>
-                <Text style={styles.emailUsuarioPerfil}>email do usuário</Text>
+
+                <View style={styles.container1}>
+                    <Text style={styles.nomeUsuarioPerfil}>Nome do usuário</Text>
+                    <Text style={styles.emailUsuarioPerfil}>email do usuário</Text>
+                </View>
 
                 <View style={styles.container2}>
                     <View style={styles.listItem}>
                         <Image source={require('../assets/Vector2.png')} style={styles.iconCheckin} />
-                        <Text style={styles.checkins}>{checkins}</Text>
+
+                        <Text style={styles.checkins}> {checkins}</Text>
                     </View>
                     <View style={styles.listItem}>
                         <Image source={require('../assets/Vector.png')} style={styles.vector} />
+
                         <Text style={styles.pontos}>{pontos}</Text>
                     </View>
                 </View>
+                <TouchableOpacity style={styles.buttonContainer2} onPress={handleLogout}>
+                    <Text style={styles.buttonText2}>Sair</Text>
+                </TouchableOpacity>
             </View>
-        </View>
+        </View >
     );
 };
 
@@ -69,8 +83,8 @@ const styles = StyleSheet.create({
         top: 0,
     },
     sobrepor: {
-        width: '75%',
-        height: 350,
+        width: 324,
+        height: 380,
         opacity: 1,
         backgroundColor: '#FFFFFF',
         shadowColor: '#000000',
@@ -81,11 +95,18 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     sobrepor2: {
-        marginLeft: 45,
+        alignSelf: 'center',
+        flexDirection: 'row',
+        gap: 20,
         bottom: 100,
         width: 150,
         height: 150,
         zIndex: 2,
+    },
+    container1: {
+        alignSelf: 'center',
+        alignItems: 'center',
+        bottom: 85,
     },
     fotoPerfil: {
         width: '100%',
@@ -94,13 +115,26 @@ const styles = StyleSheet.create({
     iconEdit: {
         width: 40,
         height: 40,
-        marginLeft: 205,
-        bottom: 138,
+        alignSelf: 'flex-end',
+    },
+    buttonContainer2: {
+        position: 'absolute',
+        alignSelf: 'center',
+        top: 355,
+        width: 200,
+        padding: 12,
+        backgroundColor: '#F7941E',
+        borderRadius: 30,
+    },
+    buttonText2: {
+        color: '#FFFFFF',
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'center',
     },
     nomeUsuarioPerfil: {
         width: '100%',
         height: 'auto',
-        bottom: 130,
         fontStyle: 'normal',
         fontWeight: 'normal',
         fontSize: 16,
@@ -112,7 +146,6 @@ const styles = StyleSheet.create({
     emailUsuarioPerfil: {
         width: '100%',
         height: 'auto',
-        bottom: 130,
         fontStyle: 'normal',
         fontWeight: 'normal',
         fontSize: 12,
@@ -121,34 +154,30 @@ const styles = StyleSheet.create({
         color: '#888888',
     },
     iconCheckin: {
-        position: 'absolute',
+        marginLeft: 3,
         width: 18,
         height: 24,
     },
     vector: {
-        position: 'absolute',
         width: 24,
         height: 24,
     },
     listItem: {
-        alignItems: 'center',
         flexDirection: 'row',
+        alignItems: 'center',
+        gap: 15,
     },
     container2: {
-        flexDirection: 'column',
-        gap:50,
+        position: 'absolute',
+        top: 100,
+        padding: 50,
+        gap: 20,
     },
     checkins: {
-        position: 'absolute',
-        left: '43%',
-        top: '45%',
         fontWeight: 'normal',
         fontSize: 21,
     },
     pontos: {
-        position: 'absolute',
-        left: '43%',
-        top: '63%',
         fontWeight: 'normal',
         fontSize: 21,
     },
