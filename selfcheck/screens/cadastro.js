@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, Image, TouchableOpacity, Text } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 
 const CadastroScreen = () => {
   const [usuario, setUsuario] = useState('');
@@ -12,7 +11,7 @@ const CadastroScreen = () => {
   const navigation = useNavigation();
 
   const handleSubmit = () => {
-    // Logic to process the form
+    // Lógica processamento do formulário
     console.log('Usuário:', usuario);
     console.log('Email:', email);
   };

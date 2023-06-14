@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
+
 
 const CheckinScreen = () => {
   [hasPermission, setHasPermission] = React.useState(null);
@@ -32,7 +32,7 @@ const CheckinScreen = () => {
   const handleCheckin = () => {
     if (checkinEnabled) {
       // Lógica para processar o check-in
-      navigation.navigate('CheckinConfirmation'); // Navegar para a tela de confirmação do check-in
+      //navigation.navigate('CheckinConfirmation'); // Navegar para a tela de confirmação do check-in
       Alert.alert(
         'Check-in realizado',
         'Check-in realizado com sucesso',
@@ -72,7 +72,9 @@ const CheckinScreen = () => {
           </TouchableOpacity>
         )}
       </View>
+
     </View>
+
   );
 }
 

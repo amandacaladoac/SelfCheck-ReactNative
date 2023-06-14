@@ -1,10 +1,13 @@
 import React, { cloneElement, useState } from 'react';
 import { StyleSheet, View, TextInput, Image, TouchableOpacity, Button, Text } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import Navigation from './navigation.js';
 
+const Stack = createStackNavigator();
 
 const FormularioScreen = () => {
+  <Stack.Screen name="Navigation" component={Navigation} options={{ headerShown: false }} />
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
   const navigation = useNavigation();
@@ -16,7 +19,7 @@ const FormularioScreen = () => {
   };
 
   const navigateToCheckin = () => {
-    navigation.navigate('Checkin');
+    navigation.navigate('Navigation');
   }
 
   const navigateToCadastro = () => {

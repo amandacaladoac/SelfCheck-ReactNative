@@ -1,7 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { cloneElement, useState } from 'react';
-import { StyleSheet, View, TextInput, Image, TouchableOpacity, Button, Text } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // importando telas
@@ -10,6 +8,8 @@ import FormularioScreen from './screens/login.js';
 import CadastroScreen from './screens/cadastro.js';
 import CheckinScreen from './screens/checkin.js';
 import PerfilScreen from './screens/perfil.js';
+import Navigation from './screens/navigation.js';
+
 
 const Stack = createStackNavigator();
 
@@ -26,6 +26,8 @@ export default function App() {
         <Stack.Screen name="Cadastro" component={CadastroScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Checkin" component={CheckinScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Perfil" component={PerfilScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Navigation" component={Navigation} options={{ headerShown: false }} />
+        
         {/* Adicione outras telas do seu aplicativo aqui */}
       </Stack.Navigator>
     </NavigationContainer>

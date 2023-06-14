@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 
 
 const PerfilScreen = () => {
@@ -21,9 +20,9 @@ const PerfilScreen = () => {
 
     const handleLogout = () => {
         // Lógica para deslogar o usuário da conta
-    
+
         navigation.navigate('Home');
-      };
+    };
 
     return (
         <View style={styles.container}>
