@@ -1,26 +1,38 @@
-import React, { cloneElement, useState } from 'react';
-import { StyleSheet, View, TextInput, Image, TouchableOpacity, Button, Text } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, TextInput, Image, TouchableOpacity, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Navigation from './navigation.js';
-
-const Stack = createStackNavigator();
+import axios from '../api';
+import { UserProvider } from './UserContext';
 
 const FormularioScreen = () => {
-  <Stack.Screen name="Navigation" component={Navigation} options={{ headerShown: false }} />
-  const [usuario, setUsuario] = useState('');
+  const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const navigation = useNavigation();
 
-  const handleSubmit = () => {
-    // Lógica para processar o formulário
-    console.log('Usuário:', usuario);
-    console.log('Senha:', senha);
+  const updateUser = (userId) => {
+    // Implemente a lógica para atualizar o contexto com o ID do usuário
+    console.log('ID do usuário:', userId);
   };
 
-  const navigateToCheckin = () => {
-    navigation.navigate('Navigation');
-  }
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post('/usuario/login', {
+        email,
+        senha,
+      });
+      console.log('Login realizado com sucesso:', response.data);
+      // Redirecionar para a tela de navegação após o login
+      navigation.navigate('Navigation');
+    } catch (error) {
+      console.error('Erro no login:', error);
+    }
+  };
+
+  // Simule o ID do usuário obtido após o login
+  const userId = '123456';
+
+  // Atualize o contexto com o ID do usuário
+  updateUser(userId);
 
   const navigateToCadastro = () => {
     navigation.navigate('Cadastro');
@@ -29,33 +41,38 @@ const FormularioScreen = () => {
   return (
     <View style={styles.container}>
       <Image source={require('../assets/logo-principal.png')} style={styles.logo} />
-      <View style={styles.formContainer}>
-        <View>
-          <TextInput
-            style={styles.input}
-            placeholder="Usuário"
-            value={usuario}
-            onChangeText={text => setUsuario(text)}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Senha"
-            value={senha}
-            onChangeText={text => setSenha(text)}
-            secureTextEntry
-          />
-        </View>
 
-        <View style={styles.buttons}>
-          <TouchableOpacity style={styles.buttonContainer} onPress={navigateToCheckin}>
-            <Text style={styles.buttonText}>Login</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonContainer2} onPress={navigateToCadastro}>
-            <Text style={styles.buttonText2}>Cadastre-se</Text>
-          </TouchableOpacity>
+      <UserProvider>
+        <View style={styles.formContainer}>
+          <View>
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              value={email}
+              onChangeText={text => setEmail(text)}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Senha"
+              value={senha}
+              onChangeText={text => setSenha(text)}
+              secureTextEntry
+            />
+          </View>
 
+          <View style={styles.buttons}>
+            <TouchableOpacity style={styles.buttonContainer} onPress={handleSubmit}>
+              <Text style={styles.buttonText}>Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer2} onPress={navigateToCadastro}>
+              <Text style={styles.buttonText2}>Cadastre-se</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </UserProvider>
     </View>
   );
 };

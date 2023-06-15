@@ -2,14 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button, Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useNavigation } from '@react-navigation/native';
-
+import axios from '../api';
+import UserContext from './UserContext';
 
 const CheckinScreen = () => {
-  [hasPermission, setHasPermission] = React.useState(null);
-  const [scanned, setScanned] = React.useState(false);
-  const [scanning, setScanning] = React.useState(true);
+  const [hasPermission, setHasPermission] = useState(null);
+  const [scanned, setScanned] = useState(false);
+  const [scanning, setScanning] = useState(true);
   const [checkinEnabled, setCheckinEnabled] = useState(false);
   const navigation = useNavigation();
+  const { updateUser } = useContext(UserContext);
+
+  // Obtém o ID do usuário do contexto
+  const { userId } = useContext(UserContext);
 
   useEffect(() => {
     if (scanning) {
@@ -29,20 +34,25 @@ const CheckinScreen = () => {
     }
   };
 
-  const handleCheckin = () => {
+  const handleCheckin = async () => {
     if (checkinEnabled) {
-      // Lógica para processar o check-in
-      //navigation.navigate('CheckinConfirmation'); // Navegar para a tela de confirmação do check-in
-      Alert.alert(
-        'Check-in realizado',
-        'Check-in realizado com sucesso',
-        [
-          {
-            text: 'OK',
-            onPress: () => navigation.navigate('Perfil'), // Navegar para a tela "Perfil" ao pressionar o botão "OK"
-          },
-        ]
-      );
+      try {
+        const response = await axios.put('/usuario/:id/checkin'); // Substitua ":id" pelo ID do usuário atual
+        console.log('Check-in realizado com sucesso:', response.data);
+        Alert.alert(
+          'Check-in realizado',
+          'Check-in realizado com sucesso',
+          [
+            {
+              text: 'OK',
+              onPress: () => navigation.navigate('Perfil'), // Navegar para a tela "Perfil" ao pressionar o botão "OK"
+            },
+          ]
+        );
+      } catch (error) {
+        console.error('Erro ao realizar check-in:', error);
+        Alert.alert('Erro no check-in', 'Ocorreu um erro ao fazer check-in. Tente novamente mais tarde.');
+      }
     } else {
       Alert.alert('Check-in não permitido', 'O QR Code escaneado não é válido para o check-in.');
     }
@@ -72,14 +82,12 @@ const CheckinScreen = () => {
           </TouchableOpacity>
         )}
       </View>
-
     </View>
-
   );
-}
-
+};
 
 export default CheckinScreen;
+
 
 const styles = StyleSheet.create({
   buttonContainer: {

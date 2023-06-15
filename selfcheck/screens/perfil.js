@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import axios from '../api';
 
 
 const PerfilScreen = () => {

@@ -1,22 +1,39 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, Image, TouchableOpacity, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import axios from '../api';
 
 const CadastroScreen = () => {
-  const [usuario, setUsuario] = useState('');
+  const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [matricula, setMatricula] = useState('');
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
   const navigation = useNavigation();
 
-  const handleSubmit = () => {
-    // Lógica processamento do formulário
-    console.log('Usuário:', usuario);
-    console.log('Email:', email);
+  const handleSubmit = async () => {
+    if (senha !== confirmarSenha) {
+      console.log('As senhas não correspondem.');
+      return;
+    }
+
+    try {
+      const response = await axios.post('/usuario', {
+        nome,
+        email,
+        matricula,
+        senha,
+      });
+      console.log('Cadastro realizado com sucesso:', response.data);
+      // Redirecionar para a tela de login ou outra tela apropriada após o cadastro
+      navigation.navigate('Login');
+    } catch (error) {
+      console.error('Erro no cadastro:', error);
+    }
   };
 
-  const navigateToCadastro = () => {
+
+  const navigateToLogin = () => {
     navigation.navigate('Login');
   };
 
@@ -27,16 +44,16 @@ const CadastroScreen = () => {
         <View>
           <TextInput
             style={styles.input}
-            placeholder="Usuário"
-            value={usuario}
-            onChangeText={text => setUsuario(text)}
+            placeholder="Nome"
+            value={nome}
+            onChangeText={text => setNome(text)}
           />
+
           <TextInput
             style={styles.input}
             placeholder="Email"
             value={email}
             onChangeText={text => setEmail(text)}
-            secureTextEntry
           />
           <TextInput
             style={styles.input}
@@ -60,7 +77,7 @@ const CadastroScreen = () => {
           />
         </View>
         <View style={styles.buttons}>
-          <TouchableOpacity style={styles.buttonContainer2} onPress={navigateToCadastro}>
+          <TouchableOpacity style={styles.buttonContainer2} onPress={handleSubmit}>
             <Text style={styles.buttonText2}>Cadastre-se</Text>
           </TouchableOpacity>
         </View>
