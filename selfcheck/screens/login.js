@@ -1,18 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, TextInput, Image, TouchableOpacity, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from '../api';
-import { UserProvider } from './UserContext';
+import UsuarioContext from './UsuarioContext';
 
 const FormularioScreen = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const navigation = useNavigation();
+  const [usuario, setUsuario] = useState(null); // Adicionado o estado 'usuario'
 
-  const updateUser = (userId) => {
-    // Implemente a lógica para atualizar o contexto com o ID do usuário
-    console.log('ID do usuário:', userId);
-  };
 
   const handleSubmit = async () => {
     try {
@@ -21,6 +18,16 @@ const FormularioScreen = () => {
         senha,
       });
       console.log('Login realizado com sucesso:', response.data);
+
+      // Armazena todos os dados do usuário no estado 'usuario'
+      setUsuario(response.data.usuario);
+
+      useEffect(() => {
+        if (usuario !== null) {
+          navigation.navigate('Navigation');
+        }
+      }, [usuario, navigation]);
+      
       // Redirecionar para a tela de navegação após o login
       navigation.navigate('Navigation');
     } catch (error) {
@@ -28,21 +35,22 @@ const FormularioScreen = () => {
     }
   };
 
-  // Simule o ID do usuário obtido após o login
-  const userId = '123456';
+  // Verifica se o usuário está logado e redireciona para a tela de navegação
+  useEffect(() => {
+    if (usuario) {
+      navigation.navigate('Navigation');
+    }
+  }, [usuario, navigation]);
 
-  // Atualize o contexto com o ID do usuário
-  updateUser(userId);
 
   const navigateToCadastro = () => {
     navigation.navigate('Cadastro');
   };
 
   return (
-    <View style={styles.container}>
-      <Image source={require('../assets/logo-principal.png')} style={styles.logo} />
-
-      <UserProvider>
+    <UsuarioContext.Provider value={usuario}>
+      <View style={styles.container}>
+        <Image source={require('../assets/logo-principal.png')} style={styles.logo} />
         <View style={styles.formContainer}>
           <View>
             <TextInput
@@ -72,8 +80,9 @@ const FormularioScreen = () => {
             </TouchableOpacity>
           </View>
         </View>
-      </UserProvider>
-    </View>
+      </View>
+    </UsuarioContext.Provider>
+
   );
 };
 

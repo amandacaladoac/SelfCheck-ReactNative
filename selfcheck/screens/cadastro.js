@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, Image, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, TextInput, Image, TouchableOpacity, Text, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from '../api';
 
@@ -38,7 +38,7 @@ const CadastroScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Image source={require('../assets/logo-principal.png')} style={styles.logo} />
       <View style={styles.formContainer}>
         <View>
@@ -82,7 +82,7 @@ const CadastroScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -90,7 +90,7 @@ export default CadastroScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'space-evenly',
     alignItems: 'center',
     padding: 15,

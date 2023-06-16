@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button, Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useNavigation } from '@react-navigation/native';
-import axios from '../api';
-import UserContext from './UserContext';
+
+
 
 const CheckinScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -11,10 +11,7 @@ const CheckinScreen = () => {
   const [scanning, setScanning] = useState(true);
   const [checkinEnabled, setCheckinEnabled] = useState(false);
   const navigation = useNavigation();
-  const { updateUser } = useContext(UserContext);
 
-  // Obtém o ID do usuário do contexto
-  const { userId } = useContext(UserContext);
 
   useEffect(() => {
     if (scanning) {
@@ -37,8 +34,7 @@ const CheckinScreen = () => {
   const handleCheckin = async () => {
     if (checkinEnabled) {
       try {
-        const response = await axios.put('/usuario/:id/checkin'); // Substitua ":id" pelo ID do usuário atual
-        console.log('Check-in realizado com sucesso:', response.data);
+        console.log('Check-in realizado com sucesso:');
         Alert.alert(
           'Check-in realizado',
           'Check-in realizado com sucesso',
